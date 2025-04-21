@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine.js Example</title>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        // It's good practice to wait for Alpine to initialize, especially when using defer
+        document.addEventListener('alpine:init', () => {  // <--- Recommended way
+            Alpine.data('dropdown', () => ({
+                open: false,
+                toggle() {
+                    this.open = ! this.open
+                }
+            }))
+        }) // End of alpine:init listener
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; } /* Optional: prevent flash of unstyled content */
+    </style>
+</head>
+<body>
+
+    <h1>Reusable Dropdowns</h1>
+
+    <div x-data="dropdown" x-cloak> <button @click="toggle">Expand Section 1</button>
+        <span x-show="open">Content for section 1...</span>
+    </div>
+
+    <hr>
+
+    <div x-data="dropdown" x-cloak> <button @click="toggle">Expand Section 2</button>
+        <span x-show="open">Some Other Content for section 2...</span>
+    </div>
+
+</body>
+</html>

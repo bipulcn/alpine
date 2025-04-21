@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templating</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <h1>Alpine js Templating</h1>
+
+    <hr>
+        <div x-data="{title: 'Start here the page'}">
+            <h4 x-text="title"></h4>
+        </div>
+    <hr><br>
+    <div x-data="{ open: false }">
+        <button @click="open = ! open">Expand</button>
+     
+        <template x-if="open">
+            <div>
+                Notice that x-if must be declared on a template tag. This is so that Alpine can leverage the existing browser behavior of the template element and use it as the source of the target div to be added and removed from the page.
+            </div>
+        </template>
+    </div><br>
+    <div x-data="{ open: false }">
+        <button @click="open = ! open">Expand</button>
+     
+            <div x-show="open" x-transition.duration.1000ms>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In soluta quidem consectetur harum doloremque optio voluptatum explicabo sit praesentium nulla. Rerum optio repellat aliquid enim reprehenderit quas architecto nisi ad.
+            </div>
+            <div x-show="open"  x-transition.opacity>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In soluta quidem consectetur harum doloremque optio voluptatum explicabo sit praesentium nulla. Rerum optio repellat aliquid enim reprehenderit quas architecto nisi ad.
+            </div>
+            <div x-show="open" x-transition:enter.duration.500ms
+            x-transition:leave.duration.1500ms>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In soluta quidem consectetur harum doloremque optio voluptatum explicabo sit praesentium nulla. Rerum optio repellat aliquid enim reprehenderit quas architecto nisi ad.
+            </div>
+    </div>
+    <hr><br>
+    <div x-data="{ statuses: ['open', 'closed', 'archived'] }">
+        <template x-for="status in statuses">
+            <div x-text="status"></div>
+        </template>
+    </div>
+    <hr><br>
+    <div x-data="{ title: '<h4>Start Here</h4>' }">
+        <div x-html="title"></div>
+    </div>
+    <hr><br>
+
+    <hr><br>
+
+    <hr><br>
+</body>
+</html>

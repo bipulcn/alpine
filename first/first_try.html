@@ -1,17 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        [x-cloak] { display: none !important; } /* Optional: prevent flash of unstyled content */
+    </style>
 </head>
+
 <body>
     <h1 x-data="{ message: 'I ❤️ Alpine' }" x-text="message"></h1>
 
+    <br><br><br>
     <div x-data="{count: 0}">
         <button x-on:click="count++">Increment</button>
         <span x-text="count"></span>
     </div>
+    <br><br><br>
+    <div x-data="{ open: false }">
+        <button @click="open = ! open">Toggle</button>
+
+        <div x-show="open" @click.outside="open = false" x-transition>Please click somewhere outside this line.</div>
+    </div>
+    <br><br><br>
+    <div x-data="{
+        search: '',
+        
+        items: ['foo', 'bar', 'baz'],
+        
+        get filteredItems() {
+            return this.items.filter(
+                i => i.startsWith(this.search)
+                )
+            }
+        }">
+        <input x-model="search" placeholder="Search...">
+        
+        <ul>
+            <template x-for="item in filteredItems" :key="item">
+                <li x-text="item"></li>
+            </template>
+        </ul>
+    </div>
+    
+    
+    
+    <br><br><br>
+    <script>
+        // It's good practice to wait for Alpine to initialize, especially when using defer
+        document.addEventListener('alpine:init', () => {  // <--- Recommended way
+        Alpine.data('dropdown', () => ({
+                open: false,
+                toggle() {
+                    this.open = ! this.open
+                }
+            }));
+            Alpine.store('tabs', {
+                current: 'first',
+            
+                items: ['first', 'second', 'third'],
+            });
+        }) // End of alpine:init listener
+    </script>
+    <div x-data="dropdown">
+        <button @click="toggle">Expand</button>
+     
+        <span x-show="open">Content...</span>
+    </div>
+     
+    <div x-data="dropdown">
+        <button @click="toggle">Expand</button>
+     
+        <span x-show="open">Some Other Content...</span>
+    </div>
+
+<br><br><br>
+    <div x-data>
+        <template x-for="tab in $store.tabs.items" :key="tab">
+            ..
+            <li x-text="tab"></li>
+        </template>
+    </div>
+    <br>
+        <div x-text="$store.tabs.current"></div>
+    <br>
+    <div x-data>
+        <button @click="$store.tabs.current = 'first'">First Tab</button>
+        <button @click="$store.tabs.current = 'second'">Second Tab</button>
+        <button @click="$store.tabs.current = 'third'">Third Tab</button>
+    </div>
 </body>
+
 </html>
