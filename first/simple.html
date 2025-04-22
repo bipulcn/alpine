@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS basics</title>
+</head>
+<body>
+    <h1>This is js basics</h1>
+
+    <script>
+        var parentName = "Suzy";
+        function printStudent(name) {
+            selfName = name.toUpperCase();
+            console.log(selfName);
+            console.log(window.parentName);
+        }
+        printStudent('Frank');
+
+
+        var one = 1;
+        let notOne = 2;
+        const notTwo = 3;
+        class notThree {}
+
+        console.log(window.one);       // 1
+        console.log(window.notOne);    // undefined
+        console.log(window.notTwo);    // undefined
+        console.log(window.notThree);  // undefined
+
+
+
+        var special = 42;
+
+        function lookingFor(special) {
+            // The identifier `special` (parameter) in this
+            // scope is shadowed inside keepLooking(), and
+            // is thus inaccessible from that scope.
+            var another = {
+                special: special
+            };
+
+            console.log(special);
+            function keepLooking() {
+                console.log(special);
+                var special = 3.141592;
+                console.log(special);
+                console.log(another.special);  
+                console.log(window.special);
+            }
+
+            keepLooking();
+        }
+
+        lookingFor(112358132134);
+        // 3.141592
+        // 42
+
+        function something() {
+            var special = "JavaScript";
+            console.log(special);
+
+            {
+                // console.log(special); // error undefied variable
+                let special = 42;   // totally fine shadowing
+                console.log(special);
+                
+
+                // ..
+            }
+        }
+        something();
+    </script>
+</body>
+</html>
