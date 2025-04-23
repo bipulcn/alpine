@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Scopes of variables</title>
+</head>
+
+<body>
+    <h1>JS Scopes check out console</h1>
+
+    <script>
+        var moduleOne = (function one() {
+            console.log("This is one")
+        })();
+        var moduleTwo = (function two() {
+            // ..
+
+            function callModuleOne() {
+                moduleOne.someMethod('test');
+            }
+
+            // ..
+        })();
+        var studentName = "Kyle";
+
+        function hello() {
+            console.log(`Hello, ${studentName}!`);
+        }
+
+        hello();
+
+        function hello2() {
+            console.log(`Hello2, ${ window.studentName }!`);
+        }
+
+        window.hello2();
+
+        window.something = 42;
+
+        let something = "Kyle";
+
+        console.log(something);
+        // Kyle
+
+        console.log(window.something);
+
+        var name = 42;
+        
+        let studentID = 42;
+
+        console.log(name, typeof name);
+
+        function hello() {
+            console.log(`Hello, ${ self.studentName }!`);
+        }
+
+        self.hello();
+        // Hello, Kyle!
+
+        console.log(self.studentID);
+    </script>
+</body>
+
+</html>
